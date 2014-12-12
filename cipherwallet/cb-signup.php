@@ -4,12 +4,18 @@
 //    when an user scans the QR code on the signup page and transmits the requested
 //    personal data.
 // We expect that the request conent type is json and looks something like this:
-//    {
+// {
+//    "session": "...",
+//    "user_data": {
 //      "email": {"email": "john.doe@gmail.com"},
 //      "phone": {"num": "2345551212", "cansms": true},
 //      "user": {"last": "Doe", "first": "John"},
-//      "callback_meta": {...}
+//    },
+//    "reg_meta": {
+//       "tag": "...",
+//       "complete_timer": ...
 //    }
+// }
 // We will save this data in a temporary storage resource. The ajax polling mechanism 
 //    embedded in the signup web page will discover the record in the next pass, and 
 //    will dispatch the data to the appropriate form fields.
@@ -55,9 +61,8 @@ if (array_key_exists('reg_meta', $rq) && array_key_exists('tag', $rq['reg_meta']
 // we place the data we received from the user's mobile app (but not the metadata) in the 
 //    temporary storage. this data will be dispatched on the next poll received from the 
 //    browser, and the javascript on the page will distribute it to the form fields
-unset($rq['reg_meta']);
-if (DEBUG) file_put_contents(DEBUG, "data for session " . $session . ":\n" . print_r($rq, TRUE) . "\n", FILE_APPEND);
-if (!set_user_data($session, $rq)) {
+if (DEBUG) file_put_contents(DEBUG, "data for session " . $session . ":\n" . print_r($rq['user_data'], TRUE) . "\n", FILE_APPEND);
+if (!set_user_data($session, $rq['user_data'])) {
 	header("HTTP/1.0 500 Server Error");
 	exit;
 }

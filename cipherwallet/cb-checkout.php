@@ -4,11 +4,14 @@
 //    when an user scans the QR code on the checkout page and transmits the requested
 //    credit card data.
 // We expect that the request content type is json, and looks something like this:
-//    {
+// {
+//    "session": "...",
+//    "user_data": {
 //      "email": {"email": "john.doe@gmail.com"},
 //      "phone": {"num": "2345551212", "cansms": true},
 //      "creditcard": {"num": "4397078011112222", "name": "John Doe", ...},
 //    }
+// }
 // We will save this data in a temporary storage resource. The AJAX polling mechanism 
 //    embedded in the checkout web page will discover the record in the next pass, and 
 //    will dispatch the data to the appropriate form fields, similar ot an auto-fill 
@@ -44,8 +47,8 @@ $session = $rq['session'];
 // this data will be dispatched on the next poll received from the browser, and 
 //     the javascript on the page will distribute it to the form fields
 unset($rq['callback_meta']);
-if (DEBUG) file_put_contents(DEBUG, "data for session " . $session . ":\n" . print_r($rq, TRUE) . "\n", FILE_APPEND);
-if (!set_user_data($session, $rq)) {
+if (DEBUG) file_put_contents(DEBUG, "data for session " . $session . ":\n" . print_r($rq['user_data'], TRUE) . "\n", FILE_APPEND);
+if (!set_user_data($session, $rq['user_data'])) {
 	header("HTTP/1.0 500 Server Error");
 	exit;
 }
