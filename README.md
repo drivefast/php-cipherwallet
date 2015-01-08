@@ -26,10 +26,10 @@ Terraforming
 =
 Clone the cipherwallet sdk project:
     git clone https://github.com/drivefast/php-cipherwallet.git
-If you're unfamiliar with git, cloning will essentially create a directory called ```php-cipherwallet``` in your website root folder, and will copy all the SDK's files there.
+If you're unfamiliar with git, cloning will essentially create a directory called ```php-cipherwallet``` in your current folder, and will copy all the SDK's files there.
 
-The files located directly under ```php-cipherwallet/``` are a sample website. The actual SDK files end up in the ```php-cipherwallet/cipherwallet``` directory. Easiest way to wire up the SDK to your website is to create a symbolic link in your website root directory, to the directory that contains the cipherwallet scripts. In Linux, that would be:
-    ln -s php-cipherwallet/cipherwallet /your/website/root/cipherwallet 
+The files located directly under ```php-cipherwallet/example/``` are a sample website. The actual SDK files end up in the ```php-cipherwallet/cipherwallet/``` directory. Easiest way to wire up the SDK to your website is to create a symbolic link in your website root directory, to the directory that contains the cipherwallet scripts. In Linux, that would be:
+    ln -s /path/to/php-cipherwallet/cipherwallet /your/website/root/cipherwallet 
 Make sure that your website code can execute scripts in the SDK directory, but prohibits dir and view / download operations.
 
 The SDK comes with two sample files: ```constants.sample.php``` and ```hooks.sample.php```. Duplicate these files but remove the word ```sample``` from their name, such that their names become ```constants.php``` and ```hooks.php```. Remember to make sure that the content of these files is NOT available to the outside world, as they will end up storing sensitive information. Carefully mask them out in your .htaccess file (if using apache), issue a 404 Not Found error when they're called directly in nginx - you get the point.

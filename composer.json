@@ -1,0 +1,22 @@
+{
+  "name": "securiolabs/cipherwallet",
+  "description": "cipherwallet PHP library",
+  "keywords": [ "cipherwallet", "api", "sdk", "QR code login", "QR code checkout", "QR code payments" ],
+  "homepage": "https://cipherwallet.com/",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "cipherwallet peeps",
+      "homepage": "https://github.com/drivefast/php-cipherwallet/graphs/contributors"
+    }
+  ],
+  "require": {
+    "php": ">=5.2",
+    "ext-curl": "*",
+    "ext-json": "*",
+    "ext-pdo": "*",
+    "ext-mcrypt": "*",
+    "ext-memcached": "*",
+    "ext-redis": "*"
+  }
+}
