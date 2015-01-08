@@ -10,7 +10,10 @@ require_once(__DIR__ . "/constants.php");
 // Some files become obsolete after a few seconds or minutes. To indicate the validity  
 // of the files, as soon as we create them, we change the last-modified date to a 
 // future date when the data is considered stale or invalid. You HAVE TO run a cron job 
-// that deletes the obsoleted files, otherwise your directory will keep filling up.
+// that deletes the obsoleted files, otherwise your directory will keep filling up. Use 
+// the following command in a crontab that executes every hour:
+//
+//    find /path/to/sessions/directory -type f -mmin +60 -delete
 //
 ////////////////////////////////////////////////////////////////////////////////////////
 
