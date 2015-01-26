@@ -8,6 +8,8 @@ function Cipherwallet(options) {
 	this.tag = options.qrContainerID;
 	// detailsURL is a web page describes cipherwallet from an user perspective
 	this.detailsURL = options.detailsURL || "http://www.cipherwallet.com/wtfcipherwallet.html";
+	// dummy initialize the browser coordinates
+	this.browser_lat = 0.; this.browser_long = 0.;
 	// callback function for successful data transfer; will have as argument the JSON received on the poll response
 	this.onSuccess = options.onSuccess || function(x) {}; 
 	// callback function for failed data transfer; will have as argument a number that can be:
@@ -37,8 +39,11 @@ Cipherwallet.prototype.longPoll = function() {
     if (!this.polls)
         return;
     var this_tag = this.tag;
+    var query_string = "tag=" + this_tag;
+    if ((this.browser_lat) && (this.browser_long))
+        query_string += "&browser_location=" + this.browser_lat + "," + this.browser_long;
     $.ajax({ 
-        url: "/cipherwallet/cw-poll.php?tag=" + this_tag,
+        url: "/cipherwallet/cw-poll.php?" + query_string,
         cache: false,
         statusCode: {
             // user scanned code and posted data successfully, call the onSuccess() function

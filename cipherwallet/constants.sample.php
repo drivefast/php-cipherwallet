@@ -19,6 +19,18 @@ define('POLL_DELAY', 2);
 // service id, always "cipherwallet"
 define('SERVICE_ID', "cipherwallet");
 
+// calculate the geographic distance between the location of the browser, and the location 
+// of the mobile device that attempts a cipherwallet login; the login is doubtful if the 
+// calculated distance is greater than the value of the constant below (expressed in meters).
+// leave this constant commented out if you don't want to check for distance. 
+//define('MOBILE_DEVICE_DISTANCE_MAX', 1000);
+// enforce the rule above: if the login is doubtful, don't accept it (otherwise just return 
+// a warning to the browser)
+define('MOBILE_DEVICE_DISTANCE_REQUIRED', FALSE);
+// if the browser is always in the same location (e.g. an ATM machine, or an access point
+// in a building), you may hardcode its geographic coordinates
+//define('BROWSER_COORDINATES', '37.883229,-85.965282');
+
 // keep this to FALSE if not debugging; otherwise set to a log filename
 define('DEBUG', FALSE);
 if (DEBUG) {

@@ -13,12 +13,14 @@ function authorize_session_for_user($user_id) {
 //    set the session variables for the logged-in user), and is expected to return 
 //    a dictionary with whatever you need to forward to the browser, in response to
 //    the AJAX poll
+// if something goes wrong, return an array that has a non-zero-length 'error' key
     $_SESSION['user_name'] = "Jane Doe";
     $_SESSION['user_id'] = "janedoe";
     return array(
         'user_name' => "Jane Doe",
         'user_id' => "janedoe",
     );
+//  return array('error' => "Oh boy, something went wrong here...");
 }
 
 // you will need to implement this when you use QR login services registration for

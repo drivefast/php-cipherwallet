@@ -5,11 +5,14 @@
 // If data signup page data was loaded from the mobile app (QR code scanning), we also 
 //    register the user to use cipherwallet (QR code scanning) for the logins
 
+error_reporting(E_ALL);
+ini_set("display_errors", 1);
+
 header("Content-Type: application/json");
 
 // we create an user record with the form data
 try {
-    $db = new PDO("sqlite:/path/to/php-cipherwallet/your.db");
+    $db = new PDO("sqlite:/path/to/your.db");
 } catch (PDOException $e) {
     header("HTTP/1.0 503 Service Unavilable");
     exit;
@@ -27,7 +30,7 @@ if (
 
 // make sure the user doesnt already exist; email is the unique identifier
 // (you probably wouldnt do this in real life, instead you would warn the user that their id is already in use...)
-$db->exec($db->prepare("DELETE FROM users WHERE email = :email;"), array('email' => $_POST['email']));
+$db->prepare("DELETE FROM users WHERE email = :email;")->execute(array('email' => $_POST['email']));
 
 // create user record
 $sql = $db->prepare( 
@@ -40,7 +43,7 @@ if ($sql->execute(array(
     'password' => crypt($_POST['password1'], md5(mt_rand())),
     'time' => time(),
 ))) {
-    header("HTTP/1.1 " . $http_status);
+    header("HTTP/1.0 200 OK");
     echo json_encode(array(
         'firstname' => $_POST['firstname'],
         'email' => $_POST['email'],

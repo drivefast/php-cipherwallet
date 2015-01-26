@@ -146,7 +146,6 @@ function cqr_authorize($auth_data) {
 	if (DEBUG) file_put_contents(DEBUG,
 		"hashed signatures: " . $h_sig_calculated . " " . $h_sig_received . "\n", 
 	FILE_APPEND);
-//	return ($h_sig_calculated == $h_sig_received) ? $auth_data['user'] : FALSE;
 	return ($h_sig_calculated == $h_sig_received) ? $user_id : FALSE;
 
 }
