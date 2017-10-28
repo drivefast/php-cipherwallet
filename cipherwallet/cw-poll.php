@@ -61,7 +61,7 @@ if ($user_data_json = get_user_data($cw_session_id)) {
                 }
             }
             if (!$ret['error'])
-                $ret += authorize_session_for_user($user_id);  // you MUST implement this in cipherwllet-hooks.php
+                $ret = array_merge($ret, authorize_session_for_user($user_id));  // you MUST implement this in cipherwllet-hooks.php
         } else 
             $ret['error'] = "User not registered";
         header("HTTP/1.0 " . ($ret['error'] ? "401 Unauthorized" : "200 OK"));
